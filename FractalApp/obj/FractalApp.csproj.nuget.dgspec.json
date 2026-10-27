@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\user\\Desktop\\Hanoi\\RecursionLab\\FractalApp\\FractalApp.csproj": {}
+    "D:\\Загрузка яндекс моды\\Uni-Alg-LabWork2-fixed\\Uni-Alg-LabWork2-main\\FractalApp\\FractalApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\user\\Desktop\\Hanoi\\RecursionLab\\FractalApp\\FractalApp.csproj": {
+    "D:\\Загрузка яндекс моды\\Uni-Alg-LabWork2-fixed\\Uni-Alg-LabWork2-main\\FractalApp\\FractalApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\Desktop\\Hanoi\\RecursionLab\\FractalApp\\FractalApp.csproj",
+        "projectUniqueName": "D:\\Загрузка яндекс моды\\Uni-Alg-LabWork2-fixed\\Uni-Alg-LabWork2-main\\FractalApp\\FractalApp.csproj",
         "projectName": "FractalApp",
-        "projectPath": "C:\\Users\\user\\Desktop\\Hanoi\\RecursionLab\\FractalApp\\FractalApp.csproj",
-        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\Desktop\\Hanoi\\RecursionLab\\FractalApp\\obj\\",
+        "projectPath": "D:\\Загрузка яндекс моды\\Uni-Alg-LabWork2-fixed\\Uni-Alg-LabWork2-main\\FractalApp\\FractalApp.csproj",
+        "packagesPath": "C:\\Users\\x4yps\\.nuget\\packages\\",
+        "outputPath": "D:\\Загрузка яндекс моды\\Uni-Alg-LabWork2-fixed\\Uni-Alg-LabWork2-main\\FractalApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\x4yps\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,12 +26,10 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net8.0-windows": {
-            "framework": "net8.0-windows7.0",
+          "net8.0-windows7.0": {
             "targetAlias": "net8.0-windows",
             "projectReferences": {}
           }
@@ -46,11 +44,10 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "10.0.400"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
-        "net8.0-windows": {
-          "framework": "net8.0-windows7.0",
+        "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
           "imports": [
             "net461",
@@ -71,7 +68,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

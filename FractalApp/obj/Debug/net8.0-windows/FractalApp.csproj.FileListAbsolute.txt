@@ -1,0 +1,14 @@
+D:\Загрузка яндекс моды\Uni-Alg-LabWork2-fixed\Uni-Alg-LabWork2-main\FractalApp\bin\Debug\net8.0-windows\FractalApp.exe
+D:\Загрузка яндекс моды\Uni-Alg-LabWork2-fixed\Uni-Alg-LabWork2-main\FractalApp\bin\Debug\net8.0-windows\FractalApp.deps.json
+D:\Загрузка яндекс моды\Uni-Alg-LabWork2-fixed\Uni-Alg-LabWork2-main\FractalApp\bin\Debug\net8.0-windows\FractalApp.runtimeconfig.json
+D:\Загрузка яндекс моды\Uni-Alg-LabWork2-fixed\Uni-Alg-LabWork2-main\FractalApp\bin\Debug\net8.0-windows\FractalApp.dll
+D:\Загрузка яндекс моды\Uni-Alg-LabWork2-fixed\Uni-Alg-LabWork2-main\FractalApp\bin\Debug\net8.0-windows\FractalApp.pdb
+D:\Загрузка яндекс моды\Uni-Alg-LabWork2-fixed\Uni-Alg-LabWork2-main\FractalApp\obj\Debug\net8.0-windows\FractalApp.GeneratedMSBuildEditorConfig.editorconfig
+D:\Загрузка яндекс моды\Uni-Alg-LabWork2-fixed\Uni-Alg-LabWork2-main\FractalApp\obj\Debug\net8.0-windows\FractalApp.AssemblyInfoInputs.cache
+D:\Загрузка яндекс моды\Uni-Alg-LabWork2-fixed\Uni-Alg-LabWork2-main\FractalApp\obj\Debug\net8.0-windows\FractalApp.AssemblyInfo.cs
+D:\Загрузка яндекс моды\Uni-Alg-LabWork2-fixed\Uni-Alg-LabWork2-main\FractalApp\obj\Debug\net8.0-windows\FractalApp.csproj.CoreCompileInputs.cache
+D:\Загрузка яндекс моды\Uni-Alg-LabWork2-fixed\Uni-Alg-LabWork2-main\FractalApp\obj\Debug\net8.0-windows\FractalApp.dll
+D:\Загрузка яндекс моды\Uni-Alg-LabWork2-fixed\Uni-Alg-LabWork2-main\FractalApp\obj\Debug\net8.0-windows\refint\FractalApp.dll
+D:\Загрузка яндекс моды\Uni-Alg-LabWork2-fixed\Uni-Alg-LabWork2-main\FractalApp\obj\Debug\net8.0-windows\FractalApp.pdb
+D:\Загрузка яндекс моды\Uni-Alg-LabWork2-fixed\Uni-Alg-LabWork2-main\FractalApp\obj\Debug\net8.0-windows\FractalApp.genruntimeconfig.cache
+D:\Загрузка яндекс моды\Uni-Alg-LabWork2-fixed\Uni-Alg-LabWork2-main\FractalApp\obj\Debug\net8.0-windows\ref\FractalApp.dll

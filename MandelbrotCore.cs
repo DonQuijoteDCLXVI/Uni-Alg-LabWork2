@@ -23,6 +23,11 @@ public sealed class RenderStats
     public int Leaves;            // из них — листья
     public int MaxDepth;          // максимальная глубина рекурсии
     public int CurrentDepth;      // текущая глубина (для визуализации)
+
+    // Только для режима «теория возмущений»
+    public int PrecisionBits;     // разрядность опорной орбиты (бит)
+    public int RefOrbitLength;    // длина опорной орбиты (число точек)
+    public long RefOrbitMs;       // время расчёта опорной орбиты
 }
 
 /// <summary>Окно просмотра: какая область комплексной плоскости отображается.</summary>
@@ -43,13 +48,20 @@ public sealed class MarianiSilverRenderer
     private readonly int[] _palette;
     private readonly int _minBlock;
     private readonly RenderStats _stats;
+    private readonly Func<int, int, int> _iterate;   // как считать число итераций пикселя (x, y)
     private CancellationToken _ct;
 
     /// <summary>Вызывается после обработки каждого блока: x0, y0, x1, y1, глубина, тип.</summary>
     public Action<int, int, int, int, int, BlockKind>? BlockProcessed { get; set; }
 
-    public MarianiSilverRenderer(MandelbrotView view, int[] pixels, int[] palette, int minBlock, RenderStats stats)
+    /// <param name="iterate">
+    /// Функция «число итераций для пикселя (x, y)». По умолчанию — обычный escape-time в double;
+    /// для глубокого зума сюда подставляется <see cref="PerturbationIterator.Iterate"/>.
+    /// </param>
+    public MarianiSilverRenderer(MandelbrotView view, int[] pixels, int[] palette, int minBlock, RenderStats stats,
+                                 Func<int, int, int>? iterate = null)
     {
+        _iterate = iterate ?? ((x, y) => Iterate(view.ReAt(x), view.ImAt(y), view.MaxIter));
         _view = view;
         _pixels = pixels;
         _palette = palette;
@@ -66,13 +78,36 @@ public sealed class MarianiSilverRenderer
         Process(0, 0, _view.Width - 1, _view.Height - 1, 0);
     }
 
+    /// <summary>
+    /// Многопоточный вариант: верхние 3 уровня квадродерева (сетка 8×8) раздаются по потокам,
+    /// ниже каждый поток рекурсивно работает со своим тайлом. Тайлы идут от центра к краям —
+    /// самые тяжёлые (у границы множества) стартуют первыми, нагрузка выравнивается.
+    /// Общие границы соседних тайлов могут посчитать оба потока — результат одинаков, вреда нет.
+    /// </summary>
+    public void RunParallel(CancellationToken ct, int tilesX = 8, int tilesY = 8)
+    {
+        _ct = ct;
+        int w = _view.Width, h = _view.Height;
+        var tiles = new List<(int x0, int y0, int x1, int y1)>();
+        for (int ty = 0; ty < tilesY; ty++)
+            for (int tx = 0; tx < tilesX; tx++)
+                tiles.Add((tx * w / tilesX, ty * h / tilesY, (tx + 1) * w / tilesX - 1, (ty + 1) * h / tilesY - 1));
+
+        tiles.Sort((a, b) => Dist(a).CompareTo(Dist(b)));
+        double Dist((int x0, int y0, int x1, int y1) t) =>
+            Math.Pow((t.x0 + t.x1) / 2.0 - w / 2.0, 2) + Math.Pow((t.y0 + t.y1) / 2.0 - h / 2.0, 2);
+
+        var opt = new ParallelOptions { CancellationToken = ct, MaxDegreeOfParallelism = Environment.ProcessorCount };
+        Parallel.ForEach(tiles, opt, t => Process(t.x0, t.y0, t.x1, t.y1, 3));
+    }
+
     // ───────────────────────── РЕКУРСИВНАЯ ФУНКЦИЯ ─────────────────────────
     // Прямоугольник задаётся включительно: [x0..x1] × [y0..y1].
     private void Process(int x0, int y0, int x1, int y1, int depth)
     {
         _ct.ThrowIfCancellationRequested();
 
-        _stats.Blocks++;
+        Interlocked.Increment(ref _stats.Blocks);
         _stats.CurrentDepth = depth;
         if (depth > _stats.MaxDepth) _stats.MaxDepth = depth;
 
@@ -85,7 +120,7 @@ public sealed class MarianiSilverRenderer
             for (int y = y0; y <= y1; y++)
                 for (int x = x0; x <= x1; x++)
                     Get(x, y);
-            _stats.Leaves++;
+            Interlocked.Increment(ref _stats.Leaves);
             BlockProcessed?.Invoke(x0, y0, x1, y1, depth, BlockKind.Leaf);
             return;
         }
@@ -109,13 +144,13 @@ public sealed class MarianiSilverRenderer
                 for (int x = x0; x <= x1; x++)
                     _pixels[row + x] = color;
             }
-            _stats.Filled++;
+            Interlocked.Increment(ref _stats.Filled);
             BlockProcessed?.Invoke(x0, y0, x1, y1, depth, BlockKind.Filled);
             return;
         }
 
         // Рекурсивный шаг: делим на 4 квадранта.
-        _stats.Splits++;
+        Interlocked.Increment(ref _stats.Splits);
         BlockProcessed?.Invoke(x0, y0, x1, y1, depth, BlockKind.Split);
 
         int mx = (x0 + x1) / 2;
@@ -135,10 +170,10 @@ public sealed class MarianiSilverRenderer
         int v = _iter[idx];
         if (v >= 0) return v;
 
-        v = Iterate(_view.ReAt(x), _view.ImAt(y), _view.MaxIter);
+        v = _iterate(x, y);
         _iter[idx] = v;
         _pixels[idx] = _palette[v];
-        _stats.PixelsComputed++;
+        Interlocked.Increment(ref _stats.PixelsComputed);
         return v;
     }
 
@@ -179,17 +214,38 @@ public sealed class MarianiSilverRenderer
         }
     }
 
-    /// <summary>Палитра: индекс = число итераций, последний элемент (maxIter) = чёрный (точка внутри множества).</summary>
+    // Опорные цвета палитры (R, G, B). Начинается с тёмно-синего и замыкается на него же,
+    // поэтому цикл бесшовный.
+    private static readonly (double r, double g, double b)[] Stops =
+    {
+        (0, 7, 100), (32, 107, 203), (237, 255, 255), (255, 170, 0), (60, 10, 60), (0, 7, 100)
+    };
+
+    /// <summary>
+    /// Палитра: индекс = число итераций, последний элемент (maxIter) = чёрный (точка внутри множества).
+    /// Цвета циклически перетекают друг в друга каждые <c>Period</c> итераций.
+    ///
+    /// БАГ, который был раньше: цвет считался как sin(i·0.07 + фаза). При сильном отдалении все пиксели
+    /// «убегают» за 1–2 итерации, то есть всё изображение получало цвет палитры[1] — а это насыщенный
+    /// ярко-зелёный (R≈136, G≈232, B≈12). Теперь начало палитры — тёмно-синее, а при отдалении ещё и
+    /// ограничивается сам масштаб (см. MainForm), так что множество всегда остаётся в кадре.
+    /// </summary>
     public static int[] BuildPalette(int maxIter)
     {
+        const double Period = 64.0;
         var p = new int[maxIter + 1];
+        int n = Stops.Length - 1;
         for (int i = 0; i < maxIter; i++)
         {
-            double t = i * 0.07;
-            int r = (int)(127.5 + 127.5 * Math.Sin(t));
-            int g = (int)(127.5 + 127.5 * Math.Sin(t + 2.1));
-            int b = (int)(127.5 + 127.5 * Math.Sin(t + 4.2));
-            p[i] = unchecked((int)0xFF000000) | (r << 16) | (g << 8) | b;
+            double pos = (i % Period) / Period * n;   // 0..n
+            int k = Math.Min((int)pos, n - 1);
+            double f = pos - k;
+            f = f * f * (3 - 2 * f);                   // smoothstep — мягче переходы
+            var a = Stops[k]; var b = Stops[k + 1];
+            int r = (int)(a.r + (b.r - a.r) * f);
+            int g = (int)(a.g + (b.g - a.g) * f);
+            int bl = (int)(a.b + (b.b - a.b) * f);
+            p[i] = unchecked((int)0xFF000000) | (r << 16) | (g << 8) | bl;
         }
         p[maxIter] = unchecked((int)0xFF000000);
         return p;
