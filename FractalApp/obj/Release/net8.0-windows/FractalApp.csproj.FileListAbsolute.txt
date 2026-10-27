@@ -1,0 +1,14 @@
+C:\Users\user\Desktop\Hanoi\RecursionLab\FractalApp\bin\Release\net8.0-windows\FractalApp.exe
+C:\Users\user\Desktop\Hanoi\RecursionLab\FractalApp\bin\Release\net8.0-windows\FractalApp.deps.json
+C:\Users\user\Desktop\Hanoi\RecursionLab\FractalApp\bin\Release\net8.0-windows\FractalApp.runtimeconfig.json
+C:\Users\user\Desktop\Hanoi\RecursionLab\FractalApp\bin\Release\net8.0-windows\FractalApp.dll
+C:\Users\user\Desktop\Hanoi\RecursionLab\FractalApp\bin\Release\net8.0-windows\FractalApp.pdb
+C:\Users\user\Desktop\Hanoi\RecursionLab\FractalApp\obj\Release\net8.0-windows\FractalApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Desktop\Hanoi\RecursionLab\FractalApp\obj\Release\net8.0-windows\FractalApp.AssemblyInfoInputs.cache
+C:\Users\user\Desktop\Hanoi\RecursionLab\FractalApp\obj\Release\net8.0-windows\FractalApp.AssemblyInfo.cs
+C:\Users\user\Desktop\Hanoi\RecursionLab\FractalApp\obj\Release\net8.0-windows\FractalApp.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\Hanoi\RecursionLab\FractalApp\obj\Release\net8.0-windows\FractalApp.dll
+C:\Users\user\Desktop\Hanoi\RecursionLab\FractalApp\obj\Release\net8.0-windows\refint\FractalApp.dll
+C:\Users\user\Desktop\Hanoi\RecursionLab\FractalApp\obj\Release\net8.0-windows\FractalApp.pdb
+C:\Users\user\Desktop\Hanoi\RecursionLab\FractalApp\obj\Release\net8.0-windows\FractalApp.genruntimeconfig.cache
+C:\Users\user\Desktop\Hanoi\RecursionLab\FractalApp\obj\Release\net8.0-windows\ref\FractalApp.dll

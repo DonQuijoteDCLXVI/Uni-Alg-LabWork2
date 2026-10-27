@@ -1,0 +1,14 @@
+C:\Users\user\Desktop\Hanoi\RecursionLab\HanoiApp\bin\Release\net8.0-windows\HanoiApp.exe
+C:\Users\user\Desktop\Hanoi\RecursionLab\HanoiApp\bin\Release\net8.0-windows\HanoiApp.deps.json
+C:\Users\user\Desktop\Hanoi\RecursionLab\HanoiApp\bin\Release\net8.0-windows\HanoiApp.runtimeconfig.json
+C:\Users\user\Desktop\Hanoi\RecursionLab\HanoiApp\bin\Release\net8.0-windows\HanoiApp.dll
+C:\Users\user\Desktop\Hanoi\RecursionLab\HanoiApp\bin\Release\net8.0-windows\HanoiApp.pdb
+C:\Users\user\Desktop\Hanoi\RecursionLab\HanoiApp\obj\Release\net8.0-windows\HanoiApp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\Desktop\Hanoi\RecursionLab\HanoiApp\obj\Release\net8.0-windows\HanoiApp.AssemblyInfoInputs.cache
+C:\Users\user\Desktop\Hanoi\RecursionLab\HanoiApp\obj\Release\net8.0-windows\HanoiApp.AssemblyInfo.cs
+C:\Users\user\Desktop\Hanoi\RecursionLab\HanoiApp\obj\Release\net8.0-windows\HanoiApp.csproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\Hanoi\RecursionLab\HanoiApp\obj\Release\net8.0-windows\HanoiApp.dll
+C:\Users\user\Desktop\Hanoi\RecursionLab\HanoiApp\obj\Release\net8.0-windows\refint\HanoiApp.dll
+C:\Users\user\Desktop\Hanoi\RecursionLab\HanoiApp\obj\Release\net8.0-windows\HanoiApp.pdb
+C:\Users\user\Desktop\Hanoi\RecursionLab\HanoiApp\obj\Release\net8.0-windows\HanoiApp.genruntimeconfig.cache
+C:\Users\user\Desktop\Hanoi\RecursionLab\HanoiApp\obj\Release\net8.0-windows\ref\HanoiApp.dll
